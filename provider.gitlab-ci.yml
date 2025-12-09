@@ -1,5 +1,6 @@
 stages: # Create two stages for analysis
-  - ndiff-analysis
+  - ndiff-prev-analysis
+  - ndiff-head-analysis
   - openapi-analysis
   - publish-changes
 
@@ -8,7 +9,7 @@ stages: # Create two stages for analysis
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH # only run jobs on the default branch (main)
 
 ndiff-head: # runs ndiff on the current commit (HEAD)
-  stage: ndiff-analysis
+  stage: ndiff-head-analysis
   rules: 
     - !reference [.default_rules, rules]
   image: 
@@ -21,7 +22,7 @@ ndiff-head: # runs ndiff on the current commit (HEAD)
       - "diff_head.json"
   
 ndiff-prev: # runs ndiff on the previous commit
-  stage: ndiff-analysis
+  stage: ndiff-prev-analysis
   rules: 
     - !reference [.default_rules, rules]
   image: 
